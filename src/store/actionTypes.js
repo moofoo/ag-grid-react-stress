@@ -1,0 +1,15 @@
+export const SET_TEST_METHOD = 'SET_TEST_METHOD';
+export const SET_CHART_TYPE = 'SET_CHART_TYPE';
+export const SET_TEST_RUNNING = 'SET_TEST_RUNNING';
+export const SET_BOOK_COUNT = 'SET_BOOK_COUNT';
+export const SET_TRADE_COUNT = 'SET_TRADE_COUNT';
+export const SET_UPDATE_SIZE = 'SET_UPDATE_SIZE';
+export const SET_UPDATE_RATE = 'SET_UPDATE_RATE';
+export const SET_CONFIG = 'SET_CONFIG';
+
+export const SET_GRID_READY = 'SET_GRID_READY';
+export const SET_GRID_APIS = 'SET_GRID_APIS';
+
+export const SET_ROW_DATA = 'SET_ROW_DATA';
+export const UPDATE_ROW_DATA_DELTA = 'UPDATE_ROW_DATA_DELTA';
+export const UPDATE_ROW_DATA_BATCH = 'UPDATE_ROW_DATA_BATCH';
