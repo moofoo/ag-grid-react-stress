@@ -12,7 +12,7 @@ The method employed here is straightforward:
 
 2. Each incoming array of updates is set in Redux, and this is passed to batchUpdateRowData in the component after checking for a change to the updates prop in componentDidUpdate. See [Grid using batchUpdateRowData method](src/Tests/BatchRedux.js)
 
-This project also serves as something of a playground for me to learn different chart visualization libraries. Echarts and CanvasJS have been implemented so far.
+This project also serves as something of a playground for me to learn different chart visualization libraries. Echarts, CanvasJS and HighCharts have been implemented so far.
 
 To run, first start the server with
 
