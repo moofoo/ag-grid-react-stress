@@ -10,7 +10,7 @@ The method employed here is straightforward:
 
 1. When rowData is initially set in Redux, a map of row ids to array indexes is created. When updates come in, the id/index map is used when iterating over the array of incoming updates, to generate the modified rowData. This isn't strictly necessary to update data in the grid (see next item), but is needed so that rowData stored in Redux stays up to date for other purposes (displaying charts, in this case). See [data reducer](src/store/data/reducer.js)
 
-2. Each incoming array of updates is set in Redux, and this is passed to batchRowUpdate in the component after checking for a change to the updates prop in componentDidUpdate. See [Grid using batchUpdateRowData method](src/Tests/BatchRedux.js)
+2. Each incoming array of updates is set in Redux, and this is passed to batchUpdateRowData in the component after checking for a change to the updates prop in componentDidUpdate. See [Grid using batchUpdateRowData method](src/Tests/BatchRedux.js)
 
 This project also serves as something of a playground for me to learn different chart visualization libraries. Echarts and CanvasJS have been implemented so far.
 
