@@ -1,31 +1,44 @@
+import Highcharts from 'highcharts';
 import { createSelector } from 'reselect';
 import { getProductsSelection } from '../shared';
 
-const productsSelection = getProductsSelection(10);
+const productsSelection = getProductsSelection();
 
 const options = {
-  theme: 'dark2',
-  animationEnabled: true,
-  zoomEnabled: true,
+  chart: {
+    type: 'scatter'
+  },
+  boost: {
+    seriesThreshold: 2,
+    enabled: true
+  },
+  xAxis: {
+    title: {
+      enabled: true,
+      text: 'Time'
+    },
+    startOnTick: true,
+    endOnTick: true,
+    showLastLabel: true
+  },
+  yAxis: {
+    min: 0,
+    max: 100000,
+    title: {
+      text: 'Average'
+    }
+  },
   legend: {
-    verticalAlign: 'top'
+    layout: 'vertical',
+    align: 'left',
+    verticalAlign: 'top',
+    x: 100,
+    y: 70,
+    floating: true,
+    backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+    borderWidth: 1
   },
-  axisX: {
-    title: 'Time',
-    crosshair: {
-      enabled: true,
-      snapToDataPoint: true
-    }
-  },
-  axisY: {
-    title: 'Average',
-    includeZero: false,
-    crosshair: {
-      enabled: true,
-      snapToDataPoint: true
-    }
-  },
-  data: []
+  series: []
 };
 
 let indexCache = null;
@@ -39,17 +52,13 @@ const productSelector = createSelector(
     if (!indexCache || lastLength !== rowData.length) {
       lastLength = rowData.length;
       indexCache = [];
-
       rowData.forEach((data, index) => {
         if (productsSelection.includes(data.product)) {
           if (!productsData[data.product]) {
             productsData[data.product] = [];
           }
 
-          productsData[data.product].push({
-            x: new Date(data.updateDt),
-            y: data.average
-          });
+          productsData[data.product].push([data.updateDt, data.average]);
 
           indexCache.push(index);
         }
@@ -57,14 +66,12 @@ const productSelector = createSelector(
     } else {
       indexCache.forEach(index => {
         const data = rowData[index];
+
         if (!productsData[data.product]) {
           productsData[data.product] = [];
         }
 
-        productsData[data.product].push({
-          x: new Date(data.updateDt),
-          y: data.average
-        });
+        productsData[data.product].push([data.updateDt, data.average]);
       });
     }
 
@@ -72,30 +79,28 @@ const productSelector = createSelector(
   }
 );
 
-const productDataSelector = createSelector(
+const productSeriesSelector = createSelector(
   productSelector,
   productsData => {
-    const data = [];
+    const series = [];
 
     for (let prod in productsData) {
-      data.push({
+      series.push({
         name: prod,
-        dataPoints: productsData[prod],
-        type: 'scatter',
-        showInLegend: true
+        data: productsData[prod]
       });
     }
 
-    return data;
+    return series;
   }
 );
 
 export const chartOptionsSelector = createSelector(
-  productDataSelector,
-  productData => {
+  productSeriesSelector,
+  productSeries => {
     return {
       ...options,
-      data: productData
+      series: productSeries
     };
   }
 );

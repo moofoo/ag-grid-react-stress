@@ -14,8 +14,7 @@ const EChartsChart = ({ option }) => (
 
 const mapStateToProps = state => {
   return {
-    option: chartOptionSelector(state),
-    rowData: state.data.rowData
+    option: chartOptionSelector(state)
   };
 };
 

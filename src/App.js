@@ -23,7 +23,7 @@ import {
 import { initialState } from './store/test/reducer';
 
 const TEST_METHODS = ['batchRedux', 'delta'];
-const CHART_TYPES = ['', 'echarts', 'canvasjs'];
+const CHART_TYPES = ['', 'echarts', 'canvasjs', 'highcharts'];
 const BOOK_COUNTS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
 const TRADE_COUNTS = BOOK_COUNTS;
 
@@ -43,7 +43,7 @@ const UPDATE_RATES = [
   4000,
   5000
 ];
-const UPDATE_SIZES = UPDATE_RATES.slice();
+const UPDATE_SIZES = UPDATE_RATES;
 
 class App extends React.Component {
   onSetTestMethod = event => {

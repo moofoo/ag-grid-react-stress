@@ -16,21 +16,48 @@ const option = {
   animation: false
 };
 
-const productSeriesSelector = createSelector(
+let indexCache = null;
+let lastLength = 0;
+
+const productSelector = createSelector(
   state => state.data.rowData,
   rowData => {
     const productsData = {};
 
-    rowData.forEach(data => {
-      if (productsSelection.includes(data.product)) {
+    if (!indexCache || lastLength !== rowData.length) {
+      lastLength = rowData.length;
+      indexCache = [];
+
+      rowData.forEach((data, index) => {
+        if (productsSelection.includes(data.product)) {
+          if (!productsData[data.product]) {
+            productsData[data.product] = [];
+          }
+
+          productsData[data.product].push([data.updateDt, data.average]);
+
+          indexCache.push(index);
+        }
+      });
+    } else {
+      indexCache.forEach(index => {
+        const data = rowData[index];
+
         if (!productsData[data.product]) {
           productsData[data.product] = [];
         }
 
         productsData[data.product].push([data.updateDt, data.average]);
-      }
-    });
+      });
+    }
 
+    return productsData;
+  }
+);
+
+const productSeriesSelector = createSelector(
+  productSelector,
+  productsData => {
     const series = [];
 
     for (let prod in productsData) {

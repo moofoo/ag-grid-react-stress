@@ -1,6 +1,6 @@
 import { sampleSize } from 'lodash';
 
-const SAMPLE_SIZE = 3;
+const SAMPLE_SIZE = 5;
 
 const allProducts = [
   'Palm Oil',
@@ -33,6 +33,6 @@ const allProducts = [
   'Sugar No.14'
 ];
 
-export const getProductsSelection = () => {
-  return sampleSize(allProducts, SAMPLE_SIZE);
+export const getProductsSelection = size => {
+  return sampleSize(allProducts, size || SAMPLE_SIZE);
 };

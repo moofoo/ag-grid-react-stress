@@ -1,6 +1,7 @@
 import React from 'react';
 import EChartsChart from './echarts';
 import CanvasJSChart from './canvasjs';
+import HighChartsChart from './highcharts';
 
 const charts = props => {
   const { chartType } = props;
@@ -13,7 +14,9 @@ const charts = props => {
     case 'canvasjs':
       chart = <CanvasJSChart />;
       break;
-
+    case 'highcharts':
+      chart = <HighChartsChart />;
+      break;
     default:
       chart = null;
   }
